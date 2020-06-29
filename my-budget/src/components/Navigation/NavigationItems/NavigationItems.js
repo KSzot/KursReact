@@ -4,8 +4,10 @@ import NavigationItem from './NavigationItem/NavigationItem';
 const NavigationItems = (props) => {
   return (
     <NavigationWrapper>
-      <NavigationItem link="/">Home</NavigationItem>
-      <NavigationItem link="/test">Test</NavigationItem>
+      <NavigationItem link="/" exact>
+        Home
+      </NavigationItem>
+      <NavigationItem link="/budget">Test</NavigationItem>
     </NavigationWrapper>
   );
 };

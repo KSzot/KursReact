@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { NavLink } from 'react-router-dom';
 export const StyledLi = styled.li`
   margin: 10px 0;
   box-sizing: border-box;
@@ -14,15 +14,15 @@ export const StyledLi = styled.li`
   }
 `;
 
-export const StyledLink = styled.a`
+export const StyledLink = styled(NavLink)`
   color: #8f5c2c;
   text-decoration: none;
   width: 100%;
   box-sizing: border-box;
   display: block;
-  &:a.active,
-  &:a.visited,
-  &:a:hover {
+  &:.active,
+  &:.visited,
+  &:hover {
     color: #40a4c8;
   }
   @media (min-width: 500px) {
@@ -31,9 +31,9 @@ export const StyledLink = styled.a`
     padding: 16px 10px;
     border-bottom: 4px solid transparent;
 
-    &a:hover,
-    &a:active,
-    &a.active {
+    &:hover,
+    &:active,
+    &.active {
       background-color: #8f5c2c;
       border-bottom: 4px solid #40a4c8;
       color: white;

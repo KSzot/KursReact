@@ -6,9 +6,9 @@ export const ToolbarHeader = styled.header`
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #703b09;
+  background-color: ${(props) => props.theme.color.gray.normal};
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   padding: 0 20px;
   box-sizing: border-box;
