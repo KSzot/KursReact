@@ -1,10 +1,14 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
-import NavigationItems from './components/Navigation/NavigationItems/NavigationItems';
 import theme from './utils/theme';
 import Toolbar from './components/Navigation/Toolbar/Toolbar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-function App() {
+import { connect } from 'react-redux';
+import { FetchActions } from './components/store/actions/FetchActions';
+function App({ onFetchBudget }) {
+  useEffect(() => {
+    onFetchBudget(1);
+  }, []);
   return (
     <Fragment>
       <Router>
@@ -22,11 +26,25 @@ function App() {
   );
 }
 
+const mapStateToProps = (state) => {
+  return {
+    loading: state.FetchReducers.loading,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFetchBudget: (id) => dispatch(FetchActions.FetchBudget(id)),
+  };
+};
+
+const ConnectApp = connect(null, mapDispatchToProps)(App);
+
 function RootApp() {
   return (
     <ThemeProvider theme={theme}>
       <React.Suspense fallback={'Loading....'}>
-        <App />
+        <ConnectApp />
       </React.Suspense>
     </ThemeProvider>
   );
