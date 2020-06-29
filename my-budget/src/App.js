@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { ThemeProvider } from 'styled-components';
 import NavigationItems from './components/Navigation/NavigationItems/NavigationItems';
 import theme from './utils/theme';
@@ -6,7 +6,7 @@ import Toolbar from './components/Navigation/Toolbar/Toolbar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 function App() {
   return (
-    <ThemeProvider theme={theme}>
+    <Fragment>
       <Router>
         <Toolbar />
         <Switch>
@@ -14,12 +14,22 @@ function App() {
             <div style={{ marginTop: '72px' }}>Homepage</div>
           </Route>
           <Route path="/budget">
-            <div style={{ marginTop: '72px' }}>Budget</div>
+            <div style={{ marginTop: '72px' }}>Budget page</div>
           </Route>
         </Switch>
       </Router>
+    </Fragment>
+  );
+}
+
+function RootApp() {
+  return (
+    <ThemeProvider theme={theme}>
+      <React.Suspense fallback={'Loading....'}>
+        <App />
+      </React.Suspense>
     </ThemeProvider>
   );
 }
 
-export default App;
+export default RootApp;
