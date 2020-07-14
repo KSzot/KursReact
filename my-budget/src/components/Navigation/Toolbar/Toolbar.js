@@ -12,9 +12,13 @@ const Toolbar = (props) => {
       </ToolbarNav>
       <div>
         <Button variant="regular" onClick={() => i18n.changeLanguage('pl')}>
+          {' '}
+          {/*i18n.changeLanguage('pl')}>*/}
           pl
         </Button>
         <Button variant="regular" onClick={() => i18n.changeLanguage('en')}>
+          {' '}
+          {/*i18n.changeLanguage('en')}>*/}
           en
         </Button>
       </div>
