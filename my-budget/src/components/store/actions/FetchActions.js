@@ -18,7 +18,7 @@ export const FetchActions = {
 
 function FetchBudget(id) {
   return async (dispatch) => {
-    dispatch({ type: FetchActionTypes.FETCH_BUDGET_ALLCATEGORIES_START });
+    dispatch({ type: FetchActionTypes.FETCH_BUDGET_START });
     try {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/budgets/${id}/?_embed=transactions`,
@@ -27,12 +27,12 @@ function FetchBudget(id) {
       const data = await response.json();
       //console.log(data);
       dispatch({
-        type: FetchActionTypes.FETCH_BUDGET_ALLCATEGORIES_SUCCESS,
+        type: FetchActionTypes.FETCH_BUDGET_SUCCESS,
         payload: data,
       });
     } catch (error) {
       dispatch({
-        type: FetchActionTypes.FETCH_BUDGET_ALLCATEGORIES_FAIL,
+        type: FetchActionTypes.FETCH_BUDGET_FAIL,
       });
       console.log(error);
     }
@@ -64,7 +64,7 @@ function FetchBugdetCategories(id) {
 
 function FetchAllCategories() {
   return async (dispatch) => {
-    dispatch({ type: FetchActionTypes.FETCH_BUDGET_CATEGORIES_START });
+    dispatch({ type: FetchActionTypes.FETCH_BUDGET_ALLCATEGORIES_START });
     try {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/categories/?_expand=parentCategory`,
@@ -73,12 +73,12 @@ function FetchAllCategories() {
       const data = await response.json();
       //console.log(data);
       dispatch({
-        type: FetchActionTypes.FETCH_BUDGET_CATEGORIES_SUCCESS,
+        type: FetchActionTypes.FETCH_BUDGET_ALLCATEGORIES_SUCCESS,
         payload: data,
       });
     } catch (error) {
       dispatch({
-        type: FetchActionTypes.FETCH_BUDGET_CATEGORIES_FAIL,
+        type: FetchActionTypes.FETCH_BUDGET_ALLCATEGORIES_FAIL,
       });
       console.log(error);
     }
