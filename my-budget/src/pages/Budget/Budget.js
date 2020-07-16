@@ -2,25 +2,42 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { FetchActions } from '../../components/store/actions/FetchActions';
 import { Grid } from './Budget.css';
+import BudgetCategoryList from './components/budgetCategoryList/BudgetCategoryList';
 function Budget({
   onFetchBudget,
   onFetchBudgetCategoires,
   onFetchBudgetAllCategoires,
   budget,
+  budgetCategories,
+  loading,
+  budgetAllCategories,
 }) {
   useEffect(() => {
     onFetchBudget(1);
     onFetchBudgetCategoires(1);
     onFetchBudgetAllCategoires();
   }, [onFetchBudget, onFetchBudgetCategoires, onFetchBudgetAllCategoires]);
-  console.log(Object.entries(budget));
   return (
     <Grid>
       <section>
-        <div>Czy to dziala</div>
+        {loading ||
+        Object.keys(budget).length === 0 ||
+        Object.keys(budgetCategories).length === 0 ||
+        Object.keys(budgetAllCategories).length === 0 ? (
+          <div>...Loading</div>
+        ) : (
+          <BudgetCategoryList></BudgetCategoryList>
+        )}
       </section>
       <section>
-        <div>No powinno</div>
+        {loading ||
+        Object.keys(budget).length === 0 ||
+        Object.keys(budgetCategories).length === 0 ||
+        Object.keys(budgetAllCategories).length === 0 ? (
+          <div>...Loading</div>
+        ) : (
+          <div>Transaction!!!</div>
+        )}
       </section>
     </Grid>
   );
@@ -31,6 +48,7 @@ const mapStateToProps = (state) => {
     loading: state.FetchReducers.loading,
     budget: state.FetchReducers.budget,
     budgetCategories: state.FetchReducers.budgetCategories,
+    budgetAllCategories: state.FetchReducers.budgetAllCategories,
   };
 };
 

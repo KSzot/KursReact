@@ -1,24 +1,43 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-const BudgetCategoryList = ({}) => {
-  return <div>BudgetCategoryList</div>;
+import { groupBy } from 'lodash';
+import ToggleableList from '../../../../components/UI/ToggleableList/ToggleableList';
+import ParentCategory from './ParentCategory';
+import CategoryItem from './CategoryItem';
+const BudgetCategoryList = ({
+  loading,
+  budgetCategories,
+  budgetAllCategories,
+}) => {
+  const budgetCategoryByParent = groupBy(
+    budgetCategories,
+    (item) =>
+      budgetAllCategories.find((category) => category.id === item.categoryId)
+        .parentCategory.name,
+  );
+  const listItems = Object.entries(budgetCategoryByParent).map(
+    ([parentName, category]) => ({
+      id: parentName,
+      Trigger: ({ onClick }) => (
+        <ParentCategory name={parentName} onClick={() => onClick(parentName)} />
+      ),
+      children: category.map((item) => {
+        const { name } = budgetAllCategories.find(
+          (category) => category.id === item.categoryId,
+        );
+        return <CategoryItem key={name} name={name} />;
+      }),
+    }),
+  );
+  return <ToggleableList items={listItems} />;
 };
 
 const mapStateToProps = (state) => {
   return {
     loading: state.FetchReducers.loading,
-    budget: state.FetchReducers.budget,
     budgetCategories: state.FetchReducers.budgetCategories,
+    budgetAllCategories: state.FetchReducers.budgetAllCategories,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onFetchBudget: (id) => dispatch(FetchActions.FetchBudget(id)),
-    onFetchBudgetCategoires: (id) =>
-      dispatch(FetchActions.FetchBugdetCategories(id)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(BudgetCategoryList);
+export default connect(mapStateToProps)(BudgetCategoryList);
